@@ -45,9 +45,9 @@ public class Adminstrator extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adminstrator);
         views();
-        reterive();
+       // reterive();
     }
-    void reterive(){
+   /* void reterive(){
         pd.show();
         StringRequest stringRequest=new StringRequest(Request.Method.GET, Util.reterive, new Response.Listener<String>() {
             @Override
@@ -92,7 +92,7 @@ public class Adminstrator extends AppCompatActivity implements AdapterView.OnIte
         });
         requestQueue.add(stringRequest);
     }
-
+*/
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         userBean=arrayList.get(position);

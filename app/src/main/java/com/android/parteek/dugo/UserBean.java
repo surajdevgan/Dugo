@@ -1,5 +1,7 @@
 package com.android.parteek.dugo;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -8,13 +10,13 @@ import java.io.Serializable;
 
 public class UserBean implements Serializable {
     int id;
-    String name,phone,gender,city,password,date,time;
+    String name,phone,gender,city,password,date,time,age, blooddgroup;
 
     public UserBean() {
 
     }
 
-    public UserBean(int id, String name, String phone, String gender, String city, String password, String date, String time) {
+    public UserBean(int id, String name, String phone, String gender, String city, String password, String date, String time, String age, String blooddgroup) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -23,6 +25,25 @@ public class UserBean implements Serializable {
         this.password = password;
         this.date = date;
         this.time = time;
+        this.age = age;
+        this.blooddgroup = blooddgroup;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getBlooddgroup() {
+        return blooddgroup;
+    }
+
+
+    public void setBlooddgroup(String blooddgroup) {
+        this.blooddgroup = blooddgroup;
     }
 
     public int getId() {
@@ -100,6 +121,8 @@ public class UserBean implements Serializable {
                 ", password='" + password + '\'' +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
+                ", age='" + age + '\'' +
+                ", blooddgroup='" + blooddgroup + '\'' +
                 '}';
     }
 }

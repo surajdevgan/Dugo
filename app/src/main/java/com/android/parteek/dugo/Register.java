@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarFinalValueListener;
+import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONObject;
@@ -35,20 +41,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
-    TextView t;
+    TextView t,age;
     EditText name,phone,password;
-    Spinner city;
+    com.rey.material.widget.Spinner city;
     RadioButton male,female;
+    TextView tvMin ;
     Button signup;
+
+    Spinner bloodgroup;
     UserBean userBean;
     ArrayList<UserBean> beanArrayList;
-    ArrayAdapter<String> cityAdapter;
+    ArrayAdapter<String> cityAdapter, bloodAadapter;
     RequestQueue requestQueue;
     String date,time;
     ProgressDialog pd;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-
     void views(){
         userBean=new UserBean();
 
@@ -57,11 +65,16 @@ public class Register extends AppCompatActivity implements CompoundButton.OnChec
 
         phone=(EditText)findViewById(R.id.input_phone);
 
-
         password=(EditText)findViewById(R.id.input_password);
+        setRangeSeekbar2();
+Log.e("fg",(String) tvMin.getText());
 
 
-        city=(Spinner) findViewById(R.id.input_city);
+
+        bloodgroup  = (Spinner)findViewById(R.id.input_blood);
+
+
+        city=(com.rey.material.widget.Spinner) findViewById(R.id.input_city);
 
         male=(RadioButton) findViewById(R.id.input_male);
         male.setOnCheckedChangeListener(this);
@@ -71,20 +84,25 @@ public class Register extends AppCompatActivity implements CompoundButton.OnChec
 
         signup=(Button)findViewById(R.id.input_signup);
 
+
+
         requestQueue= Volley.newRequestQueue(this);
 
-
-        cityAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item);
-        cityAdapter.add("---Select City---");
-        cityAdapter.add("Ludhiana");
-        cityAdapter.add("Amritsar");
-        cityAdapter.add("Jalandhar");
-        city.setAdapter(cityAdapter);
-        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        bloodAadapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item);
+        bloodAadapter.add("A+");
+        bloodAadapter.add("A-");
+        bloodAadapter.add("B+");
+        bloodAadapter.add("B-");
+        bloodAadapter.add("O+");
+        bloodAadapter.add("O-");
+        bloodAadapter.add("AB+");
+        bloodAadapter.add("AB-");
+        bloodgroup.setAdapter(bloodAadapter);
+        bloodgroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position!=0){
-                    userBean.setCity(cityAdapter.getItem(position));
+                    userBean.setBlooddgroup(bloodAadapter.getItem(position));
                 }
             }
 
@@ -95,6 +113,26 @@ public class Register extends AppCompatActivity implements CompoundButton.OnChec
 
 
         });
+
+
+
+
+
+        cityAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item);
+        cityAdapter.add("---Select City---");
+        cityAdapter.add("Ludhiana");
+        cityAdapter.add("Amritsar");
+        cityAdapter.add("Jalandhar");
+        city.setAdapter(cityAdapter);
+        city.setOnItemSelectedListener(new com.rey.material.widget.Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(com.rey.material.widget.Spinner parent, View view, int position, long id) {
+                if(position!=0){
+                    userBean.setCity(cityAdapter.getItem(position));
+                }
+
+            }
+        } );
 
         signup.setOnClickListener(this);
 
@@ -189,9 +227,40 @@ protected Map<String, String> getParams() throws AuthFailureError {
         map.put("date",userBean.getDate());
         map.put("time",userBean.getTime());
         map.put("token",token);
+    map.put("blood",userBean.getBlooddgroup());
+    map.put("age",userBean.getAge());
         return map;
         }
         };
         requestQueue.add(stringRequest);
         }
-        }
+
+
+    private void setRangeSeekbar2() {
+
+        final CrystalSeekbar seekbar = (CrystalSeekbar) findViewById(R.id.rangeSeekbar2);
+
+        seekbar.setMinValue(18);
+        seekbar.setMaxValue(60);
+        tvMin = (TextView) findViewById(R.id.textMin2);
+        userBean.setAge("18");
+        seekbar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
+            @Override
+            public void valueChanged(Number value) {
+                tvMin.setText(String.valueOf(value));
+Log.e("hj",(String)tvMin.getText());
+            }
+        });
+
+        seekbar.setOnSeekbarFinalValueListener(new OnSeekbarFinalValueListener() {
+            @Override
+            public void finalValue(Number value) {
+                userBean.setAge((String) tvMin.getText()
+
+                );
+
+            }
+        });
+
+
+    }}
