@@ -5,13 +5,13 @@ package com.android.parteek.dugo;
  */
 
 public class Util {
-    public static final String insert="http://rearvision.esy.es/dugo/insert.php";
+    public static final String url = "http://surajdogg.esy.es/MyDugo/";
+    public static final String insert=url+"insert.php";
     public static final String reterive="http://rearvision.esy.es/dugo/retrieve.php";
-    public static final String update="http://rearvision.esy.es/dugo/send_message_donor.php";
+    public static final String update="http://surajdogg.esy.es/MyDugo/send_message_donor.php";
     public static final String delete="http://rearvision.esy.es/dugo/delete.php";
     public static final String login="http://rearvision.esy.es/dugo/login.php";
-    public static final String sendNotif="http://rearvision.esy.es/dugo/send_message.php";
-    public static final String insertId="http://rearvision.esy.es/dugo/insertId.php";
+    public static final String sendNotif= url+"send_message.php";
 
   //  public static final String pref_name="Dugo";
     public static final String pref_name1="DugoUser";

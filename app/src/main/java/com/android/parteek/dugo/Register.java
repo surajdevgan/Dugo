@@ -227,6 +227,7 @@ protected Map<String, String> getParams() throws AuthFailureError {
         map.put("date",userBean.getDate());
         map.put("time",userBean.getTime());
         map.put("token",token);
+
     map.put("blood",userBean.getBlooddgroup());
     map.put("age",userBean.getAge());
         return map;
