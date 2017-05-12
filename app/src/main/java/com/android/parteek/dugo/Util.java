@@ -10,7 +10,7 @@ public class Util {
     public static final String reterive="http://rearvision.esy.es/dugo/retrieve.php";
     public static final String update="http://surajdogg.esy.es/MyDugo/send_message_donor.php";
     public static final String delete="http://rearvision.esy.es/dugo/delete.php";
-    public static final String login="http://rearvision.esy.es/dugo/login.php";
+    public static final String login=url+"login.php";
     public static final String sendNotif= url+"send_message.php";
 
   //  public static final String pref_name="Dugo";

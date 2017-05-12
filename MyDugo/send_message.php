@@ -7,6 +7,7 @@ $seeker_id=$_POST['id'];
 $time=$_POST['time'];
 $date = $_POST['date'];
 $bloodgrp = $_POST['blood'];
+$token = $_POST['token'];
 include('dbconfig.php');
 include('fcm.php');
 
@@ -14,16 +15,17 @@ include('fcm.php');
 $fcm=new GCM();
 $tokens=array();
 
-$result = @mysql_query("INSERT INTO Request values(null, '$seeker_id','$bloodgrp','null','$city','$time,$date)");
+$result = @mysql_query("INSERT INTO Request values(null, '$seeker_id','$bloodgrp','null','$city','$time','$date')");
 
 $last_id=@mysql_insert_id();
+//$token = @mysql_query("SELECT TOKEN from UserDetail where ID = $seeker_id");  
 
-$resNoti=@mysql_query("SELECT TOKEN FROM UserDetail where CITY='$city'");
+$resNoti=@mysql_query("SELECT TOKEN FROM UserDetail where CITY='$city' and BLOOD_GROUP = '$bloodgrp' and not TOKEN = '$token'");
 
 $message="Lets do a good Deed by Donating Blood "."-".$seeker_id."-".$last_id;
 $noti = array("message" => $message);
 
-if(mysql_num_rows($resNoti)>0 and $result){
+if(@mysql_num_rows($resNoti)>0 and $result){
 	while ($row=@mysql_fetch_array($resNoti)) {
 		$dev_id=$row['TOKEN'];
 		array_push($tokens, $dev_id);

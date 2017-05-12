@@ -199,6 +199,7 @@ public class Notification extends AppCompatActivity implements AdapterView.OnIte
                 map.put("blood",blood);
 
                 map.put("time",time);
+                map.put("token",preferences.getString("token",null));
 
                 return map;
             }

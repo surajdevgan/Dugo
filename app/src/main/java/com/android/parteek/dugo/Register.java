@@ -193,6 +193,7 @@ Log.e("fg",(String) tvMin.getText());
                         editor.putString(Util.key_name,userBean.getName());
                         editor.putString(Util.key_phone,userBean.getPhone());
                         editor.putInt(Util.key_id,userid);
+                        editor.putString("token",token);
                         editor.commit();
                         Intent home=new Intent(Register.this,Home.class);
                         startActivity(home);
